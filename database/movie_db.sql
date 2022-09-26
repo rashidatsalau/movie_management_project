@@ -30,6 +30,11 @@ INSERT INTO directors_tbl VALUES(
     1954
 );
 
+INSERT INTO directors_tbl VALUES
+(null, "Christopher Nolan", 1970),
+(null, "Patty Jenkins", 1971),
+(null,"Chloe Zhaos", 1982);
+
 
 #Show all data from table
 #SELECT
@@ -56,10 +61,6 @@ INSERT INTO movie_tbl VALUES(
     (SELECT id FROM directors_tbl WHERE name like "James Cameron")
 );
 
-INSERT INTO movie_tbl VALUES(
-
-(null,"The Dark Knight",2008, (SELECT id FROM directors_tbl WHERE name like "Christopher Nolan"))
-);
 
 INSERT INTO movie_tbl VALUES(
     null,
@@ -121,15 +122,10 @@ INSERT INTO movie_tbl VALUES(
 );
 
 
-
-
-
-INSERT INTO directors_tbl VALUES
-(null, "Christopher Nolan", 1970),
-(null, "Patty Jenkins", 1971),
-(null,"Chloe Zhaos", 1982);
-
-
+#Update an existing data in the table
+UPDATE directors_tbl
+SET name = 'James Cameron'
+WHERE id = 1;
 
 
 # Create your Actors table
@@ -241,6 +237,11 @@ FROM movie_tbl
     JOIN main_actors_tbl ON main_actors_tbl.id = movie_actors_tbl.main_actor_id
 WHERE movie_tbl.title LIKE "Avatar";
 
+SELECT movie_tbl.title, main_actors_tbl.name
+FROM movie_tbl
+    JOIN movie_actors_tbl ON movie_tbl.id = movie_actors_tbl.movie_id
+    JOIN main_actors_tbl ON main_actors_tbl.id = movie_actors_tbl.main_actor_id
+WHERE movie_tbl.title LIKE "Avatar";
 
 
 SELECT count(*)
@@ -257,3 +258,26 @@ FROM
 movie_tbl;
 
 
+SELECT movie_tbl.title, directors_tbl.name
+FROM movie_tbl JOIN directors_tbl ON movie_tbl.director_id = directors_tbl.id
+WHERE movie_tbl.title LIKE "Inception";
+
+
+
+SELECT name
+FROM main_actors_tbl
+WHERE year_of_birth < 1980;
+
+SELECT *
+FROM directors_tbl
+ORDER BY year_of_birth DESC;
+
+SELECT movie_tbl.title FROM movie_tbl WHERE 
+
+
+SELECT *
+FROM directors_tbl
+WHERE directors_tbl.name LIKE "Nolan";
+
+SELECT movie_tbl.title, directors_t
+FROM 
