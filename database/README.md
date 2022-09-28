@@ -39,6 +39,7 @@ WHERE director_id = 2;
 
 ### Question 3 
 Among all the movies of James Cameron, how many were female actors?
+
 ```sql 
 SELECT main_actors_tbl.name, sex, directors_tbl.name
 FROM directors_tbl
@@ -61,44 +62,77 @@ LIMIT 5;
 How many directors did Leonardo DiCaprio worked with ?
 
 ```sql
+SELECT directors_tbl.name, main_actors_tbl.name
+FROM directors_tbl
+CROSS JOIN main_actors_tbl
+WHERE main_actors_tbl.name = "Leonardo DiCaprio";
 
-
-
-
-
-
-
-
-
-
++-------------------+-------------------+
+| name              | name              |
++-------------------+-------------------+
+| Chloe Zhaos       | Leonardo DiCaprio |
+| Christopher Nolan | Leonardo DiCaprio |
+| James Cameron     | Leonardo DiCaprio |
+| Patty Jenkins     | Leonardo DiCaprio |
++-------------------+-------------------+
 ```
 
 ### Question 5
-Who is the oldest director
+Who is the oldest director?
 
 ```sql 
-SELECT *
+SELECT name, year_of_birth
 FROM directors_tbl
-ORDER BY year_of_birth DESC;
+ORDER BY year_of_birth ASC
+LIMIT 1;
 
-+----+-------------------+---------------+
-| id | name              | year_of_birth |
-+----+-------------------+---------------+
-|  4 | Chloe Zhaos       |          1982 |
-|  3 | Patty Jenkins     |          1971 |
-|  2 | Christopher Nolan |          1970 |
-|  1 | James Cameron     |          1954 |
-+----+-------------------+---------------+
++---------------+---------------+
+| name          | year_of_birth |
++---------------+---------------+
+| James Cameron |          1954 |
++---------------+---------------+
 ```
 
 ### Question 6
-What is the earliest movie of the oldest director
+What is the earliest movie of the oldest director?
+
+```sql
+SELECT name, year_of_birth, release_year, title
+FROM movie_tbl
+CROSS JOIN directors_tbl
+ORDER BY year_of_birth ASC, release_year ASC
+LIMIT 1;
+
++---------------+---------------+--------------+------------+
+| name          | year_of_birth | release_year | title      |
++---------------+---------------+--------------+------------+
+| James Cameron |          1954 |         1984 | Terminator |
++---------------+---------------+--------------+------------+
+
+```
+
+### Question 7
+What is the latest movie of the youngest actor ?
+
+```sql
+SELECT name, year_of_birth, release_year, title
+FROM movie_tbl
+CROSS JOIN main_actors_tbl
+ORDER BY year_of_birth DESC, release_year DESC
+LIMIT 1;
+
++-----------+---------------+--------------+-----------+
+| name      | year_of_birth | release_year | title     |
++-----------+---------------+--------------+-----------+
+| Gal Gadot |          1985 |         2023 | Cleopatra |
++-----------+---------------+--------------+-----------+
+
+```
 
 
+### TABLES
 
-
-#### What is the latest movie of the youngest actor ?
-
+```sql
 mysql> SELECT * FROM directors_tbl;
 +----+-------------------+---------------+
 | id | name              | year_of_birth |
@@ -138,4 +172,4 @@ Movie_table
 |  9 | Eternals        |         2021 |           4 |
 | 10 | The Dark Knight |         2008 |           2 |
 +----+-----------------+--------------+-------------+
-
+```

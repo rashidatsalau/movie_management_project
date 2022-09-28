@@ -263,47 +263,21 @@ FROM movie_tbl JOIN directors_tbl ON movie_tbl.director_id = directors_tbl.id
 WHERE movie_tbl.title LIKE "Inception";
 
 
-
 SELECT name
 FROM main_actors_tbl
 WHERE year_of_birth < 1980;
 
 
-SELECT *
+SELECT name, year_of_birth
 FROM directors_tbl
-ORDER BY year_of_birth DESC;
+ORDER BY year_of_birth ASC
+LIMIT 1;
 
-
-SELECT movie_tbl.title FROM movie_tbl WHERE 
-
-
-SELECT *
-FROM directors_tbl
-WHERE directors_tbl.name LIKE "Nolan";
-
-SELECT movie_tbl.title, directors_t
-FROM 
 
 SELECT count(*)
 FROM movie_tbl
 WHERE director_id = 2;
 
-
-
-SELECT main_actors_tbl.sex, movie_tbl.title
-FROM movie_tbl
-JOIN main_actors_tbl
-WHERE sex = "F" AND director_id = 1;
-
-SELECT main_actors_tbl.sex, movie_tbl.title
-FROM movie_tbl
-JOIN main_actors_tbl
-WHERE sex = "F" AND director_id = 1;
-
-
-SELECT main_actors_tbl.name, sex, directors_tbl.name
-FROM directors_tbl
-CROSS JOIN main_actors_tbl;
 
 SELECT main_actors_tbl.name, sex, directors_tbl.name
 FROM directors_tbl
@@ -312,5 +286,26 @@ ORDER BY sex ASC
 LIMIT 5;
 
 
+SELECT name, year_of_birth
+FROM directors_tbl
+ORDER BY year_of_birth ASC
+LIMIT 1;
 
-How many directors did Leonardo DiCaprio worked with ?
+
+
+SELECT directors_tbl.name, main_actors_tbl.name
+FROM directors_tbl
+CROSS JOIN main_actors_tbl
+WHERE main_actors_tbl.name = "Leonardo DiCaprio";
+
+SELECT name, year_of_birth, release_year, title
+FROM movie_tbl
+CROSS JOIN directors_tbl
+ORDER BY year_of_birth ASC, release_year ASC
+LIMIT 1;
+
+SELECT name, year_of_birth, release_year, title
+FROM movie_tbl
+CROSS JOIN main_actors_tbl
+ORDER BY year_of_birth DESC, release_year DESC
+LIMIT 1;
