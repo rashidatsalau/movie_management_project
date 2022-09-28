@@ -268,9 +268,11 @@ SELECT name
 FROM main_actors_tbl
 WHERE year_of_birth < 1980;
 
+
 SELECT *
 FROM directors_tbl
 ORDER BY year_of_birth DESC;
+
 
 SELECT movie_tbl.title FROM movie_tbl WHERE 
 
@@ -281,3 +283,34 @@ WHERE directors_tbl.name LIKE "Nolan";
 
 SELECT movie_tbl.title, directors_t
 FROM 
+
+SELECT count(*)
+FROM movie_tbl
+WHERE director_id = 2;
+
+
+
+SELECT main_actors_tbl.sex, movie_tbl.title
+FROM movie_tbl
+JOIN main_actors_tbl
+WHERE sex = "F" AND director_id = 1;
+
+SELECT main_actors_tbl.sex, movie_tbl.title
+FROM movie_tbl
+JOIN main_actors_tbl
+WHERE sex = "F" AND director_id = 1;
+
+
+SELECT main_actors_tbl.name, sex, directors_tbl.name
+FROM directors_tbl
+CROSS JOIN main_actors_tbl;
+
+SELECT main_actors_tbl.name, sex, directors_tbl.name
+FROM directors_tbl
+CROSS JOIN main_actors_tbl
+ORDER BY sex ASC
+LIMIT 5;
+
+
+
+How many directors did Leonardo DiCaprio worked with ?
