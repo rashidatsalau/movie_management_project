@@ -7,7 +7,8 @@ resource "aws_instance" "movie_app_server" {
   subnet_id              = data.aws_subnet.Public_3.id
   vpc_security_group_ids = [aws_security_group.movie_app_sg.id]
   key_name               = var.my_keypair
-
+  user_data = "${file("${path.module}/user-data.sh")}"
+  
   tags = {
     Name = " Movie-management-server"
   }
