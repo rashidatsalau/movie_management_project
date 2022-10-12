@@ -1,25 +1,20 @@
 import json
 
-from flask import Flask,render_template
+from flask import Flask, render_template
 from flask_mysqldb import MySQL
 from flask import request
 
-
 app = Flask("MovieApp")
 
-#app.config["MYSQL_HOST"] = "127.0.0.1"
-app.config["MYSQL_HOST"] = "DOCKER_CONTAINER_IP_PLACEHOLDER"
-app.config["MYSQL_USER"] = "root" 
-app.config["MYSQL_PASSWORD"] = "zatiwa1408" 
-app.config["MYSQL_DB"] = "movie_db" 
-
-
+app.config["MYSQL_HOST"] = "127.0.0.1"
+app.config["MYSQL_USER"] = "root"
+app.config["MYSQL_PASSWORD"] = "zatiwa1408" # TODO enter your supersecret password
+app.config["MYSQL_DB"] = "movie_db"
 
 mysql = MySQL(app)
 
-
 @app.route("/")
-#Just to test that Flask is working with Hello World
+# Just to test that flask is working with Hello World
 def hello_world():
     return "<p>Hello World!</p>"
 
@@ -30,19 +25,16 @@ def list_movies():
     cursor.execute(query_string)
     data = cursor.fetchall()
     cursor.close()
-    return json.dumps(data) #Returns data as a string
-
-
+    return json.dumps(data) # Return data as a string
 
 @app.route("/movies-table/")
-def list_movie_table():
+def list_movie_table(): 
     cursor = mysql.connection.cursor()
     query_string = "SELECT * FROM movie_tbl;"
     cursor.execute(query_string)
     data = cursor.fetchall()
     cursor.close()
-    return render_template("movies.html.tpl", movies_data = data) #Return data as rendered html template
-
+    return render_template("movies.html.tpl", movies_data=data) # Return data as rendered html template
 
 @app.route("/new-movie/")
 def new_movie(): 
