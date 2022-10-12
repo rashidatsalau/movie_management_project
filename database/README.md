@@ -30,6 +30,12 @@ SELECT count(*)
 FROM movie_tbl
 WHERE director_id = 2;
 
+SELECT COUNT(*)
+FROM directors_tbl
+JOIN movie_tbl
+ON directors_tbl.id = movie_tbl.director_id
+WHERE directors_tbl.name LIKE "%Christopher Nolan%";
+
 +----------+
 | count(*) |
 +----------+
@@ -46,6 +52,18 @@ FROM directors_tbl
 CROSS JOIN main_actors_tbl
 ORDER BY sex ASC
 LIMIT 5;
+
+SELECT COUNT(*)
+FROM directors_tbl
+JOIN movie_tbl
+ON directors_tbl.id = movie_tbl.director_id
+JOIN movie_actors_tbl
+ON movie_tbl.id = movie_actors_tbl.movie_id
+JOIN main_actors_tbl
+ON main_actors_tbl.id = movie_actors_tbl.main_actor_id
+WHERE directors_tbl.name LIKE "%James Cameron%"
+AND main_actors_tbl.sex LIKE "F";
+
 
 +------------------+------+---------------+
 | name             | sex  | name          |
@@ -66,6 +84,17 @@ SELECT directors_tbl.name, main_actors_tbl.name
 FROM directors_tbl
 CROSS JOIN main_actors_tbl
 WHERE main_actors_tbl.name = "Leonardo DiCaprio";
+
+SELECT COUNT(*)
+FROM directors_tbl
+JOIN movie_tbl
+ON directors_tbl.id = movie_tbl.director_id
+JOIN movie_actors_tbl
+ON movie_tbl.id = movie_actors_tbl.movie_id
+JOIN main_actors_tbl
+ON main_actors_tbl.id = movie_actors_tbl.main_actor_id
+WHERE directors_tbl.id
+AND main_actors_tbl.name LIKE "%Leonardo DiCaprio%";
 
 +-------------------+-------------------+
 | name              | name              |
@@ -103,6 +132,13 @@ CROSS JOIN directors_tbl
 ORDER BY year_of_birth ASC, release_year ASC
 LIMIT 1;
 
+SELECT title
+FROM movie_tbl
+JOIN directors_tbl
+ON directors_tbl.id = movie_tbl.director_id
+ORDER BY directors_tbl.id ASC, movie_tbl.release_year ASC
+LIMIT 1;
+
 +---------------+---------------+--------------+------------+
 | name          | year_of_birth | release_year | title      |
 +---------------+---------------+--------------+------------+
@@ -120,6 +156,18 @@ FROM movie_tbl
 CROSS JOIN main_actors_tbl
 ORDER BY year_of_birth DESC, release_year DESC
 LIMIT 1;
+
+SELECT title
+FROM movie_tbl
+JOIN movie_actors_tbl
+ON movie_actors_tbl.movie_id = movie_tbl.id
+JOIN directors_tbl
+ON directors_tbl.id = movie_tbl.director_id
+JOIN main_actors_tbl
+ON main_actors_tbl.id = movie_actors_tbl.main_actor_id
+ORDER BY main_actors_tbl.year_of_birth DESC, movie_tbl.release_year DESC
+LIMIT 1;
+
 
 +-----------+---------------+--------------+-----------+
 | name      | year_of_birth | release_year | title     |
